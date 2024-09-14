@@ -38,4 +38,5 @@ services:
       - ./.env
 
 networks:
-  inception:
+  inception: 
+    driver: bridge

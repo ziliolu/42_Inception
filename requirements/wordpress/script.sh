@@ -12,13 +12,11 @@ if [ ! -f wp-config.php ]; then
     ./wp-cli.phar core download --allow-root || { echo "Failed to download WordPress"; exit 1; }
 
     # Create WordPress configuration
-    ./wp-cli.phar config create --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb --allow-root || { echo "Failed to create config"; exit 1; }
+    ./wp-cli.phar config create --dbname=$(WORDPRESS_DB_NAME) --dbuser=$(WORDPRESS_DB_USER) --dbpass=$(WORDPRESS_DB_PASSWORD) --dbhost=$(WORDPRESS_DB_HOST) --allow-root || { echo "Failed to create config"; exit 1; }
 
     # Install WordPress
-    ./wp-cli.phar core install --url=localhost --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root || { echo "Failed to install WordPress"; exit 1; }
+    ./wp-cli.phar core install --url=$(DOMAIN_NAME) --title=inception --admin_user=$(WORDPRESS_ADMIN_USER) --admin_password=$(WORDPRESS_ADMIN_PASSWORD) --admin_email=$(WORDPRESS_ADMIN_EMAIL) --allow-root || { echo "Failed to install WordPress"; exit 1; }
 
-    # Create a new user
-    ./wp-cli.phar user create newuser newuser@example.com --role=editor --user_pass=password --allow-root || { echo "Failed to create user"; exit 1; }
 else
     echo "WordPress is already installed."
 fi
