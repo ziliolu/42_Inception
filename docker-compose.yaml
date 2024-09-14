@@ -1,0 +1,41 @@
+services: 
+  nginx: 
+    build: requirements/nginx/. 
+    container_name: nginx
+    depends_on:
+      - wordpress
+      - mariadb
+    ports: 
+      - "80:80"
+    volumes:
+      - ./web:/var/www/html
+    networks: 
+      inception:
+    restart: always
+    env_file:
+      - ./.env
+  wordpress:
+    build: requirements/wordpress/.
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    volumes:
+      - ./web:/var/www/html
+    networks:
+      inception:
+    restart: always
+    env_file:
+      - ./.env
+  mariadb:
+    build: requirements/mariadb/.
+    container_name: mariadb
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      inception:
+    restart: always
+    env_file:
+      - ./.env
+
+networks:
+  inception:
