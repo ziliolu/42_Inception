@@ -25,7 +25,7 @@ down:
 	@docker compose down
 	@echo "$(COMPLETED) Containers stopped and removed"
 
-restart: down up
+re: down up
 
 build:
 	@echo "$(TASK) Building images"

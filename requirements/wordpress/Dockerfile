@@ -6,7 +6,7 @@ RUN apt update && apt upgrade -y && apt install -y \
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/.
 COPY script.sh .
-RUN chmod +x script.sh
+RUN chmod 777 script.sh
 
 CMD ["./script.sh"]
 
