@@ -4,6 +4,10 @@ server {
 	listen [::]:80 default_server; #IPv6
 	server_name lpicoli-.42.fr;
 
+	ssl_certificate /etc/nginx/ssl/nginx.crt;   # Caminho para o certificado SSL
+    ssl_certificate_key /etc/nginx/ssl/nginx.key;   # Caminho para a chave do certificado SSL
+	ssl_protocols TLSv1.2 TLSv1.3;  # Permite apenas TLSv1.2 e TLSv1.3
+    
 	# SSL configuration
 	#
 	# listen 443 ssl default_server;
@@ -23,6 +27,7 @@ server {
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
+	autoindex on;
 	index index.php index.html index.htm index.nginx-debian.html;
 
 

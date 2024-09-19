@@ -9,6 +9,8 @@ services:
       - "80:80"
     volumes:
       - ./web:/var/www/html
+      - ./cert.pem:/etc/nginx/ssl/cert.pem
+      - ./key.pem:/etc/nginx/ssl/key.pem
     networks: 
       inception:
     restart: always
