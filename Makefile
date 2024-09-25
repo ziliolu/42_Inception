@@ -17,6 +17,7 @@ all: up
 
 up:
 	@echo "$(TASK) Starting containers"
+	mkdir -p /home/lpicoli-/data/mysql /home/lpicoli-/data/html
 	@docker compose up -d
 	@echo "$(COMPLETED) Containers are up and running"
 
