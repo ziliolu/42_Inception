@@ -41,22 +41,25 @@ services:
     restart: always
     env_file:
       - ./.env
+    expose:
+      - "3306"
 
 networks:
   inception: 
-    driver: bridge
+    driver: bridge  # Use the bridge network driver to allow containers to communicate with each other on a private network.
 
 volumes:
   wordpress:
-    driver: local
+    driver: local 
     driver_opts:
-      type: none
-      o: bind
-      device: /home/lpicoli-/data/html
+      type: none  
+      o: bind      
+      device: /home/lpicoli-/data/html  
   database:
-    driver: local
+    driver: local  # Use the default local driver to manage the volume for the database.
     driver_opts:
-      type: none
-      o: bind
-      device: /home/lpicoli-/data/mysql
+      type: none   # Use an existing directory on the host as a bind mount.
+      o: bind      # Bind the host directory to the container for data sharing.
+      device: /home/lpicoli-/data/mysql  # The host directory where the MySQL data will be stored.
+
 

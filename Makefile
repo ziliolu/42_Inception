@@ -10,6 +10,8 @@ COMPLETED := $(GREEN)Completed!$(RESET)
 ERROR := $(RED)Error!$(RESET)
 TASK := $(YELLOW)Running task:$(RESET)
 
+COMPOSE_DIRECTORY= -f./srcs/docker-compose.yaml
+
 # Targets
 .PHONY: all up down restart build logs clean
 
@@ -18,12 +20,12 @@ all: up
 up:
 	@echo "$(TASK) Starting containers"
 	mkdir -p /home/lpicoli-/data/mysql /home/lpicoli-/data/html
-	@docker compose up -d
+	@docker compose $(COMPOSE_DIRECTORY) up -d --build
 	@echo "$(COMPLETED) Containers are up and running"
 
 down:
 	@echo "$(TASK) Stopping and removing containers"
-	@docker compose down
+	@docker compose $(COMPOSE_DIRECTORY) down
 	@echo "$(COMPLETED) Containers stopped and removed"
 
 re: down up
