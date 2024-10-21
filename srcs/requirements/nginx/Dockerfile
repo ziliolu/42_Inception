@@ -14,12 +14,17 @@ openssl
 # - `-subj`: Defines the certificate's subject (C=country, L=location, 
 #            O=organization, OU=organizational unit, CN=common name).
 
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout /etc/ssl/private/nginx-selfsigned.key \
-    -out /etc/ssl/certs/nginx-selfsigned.crt \
-    -subj "/C=${COUNTRY}/L=${CITY}/O=${ORGANIZATION}/OU=${ORG_UNIT}/CN=${DOMAIN_NAME}"
+ARG COUNTRY 
+ARG CITY 
+ARG ORGANIZATION 
+ARG ORG_UNIT 
+ARG DOMAIN_NAME
+
 
 COPY ./conf/default /etc/nginx/sites-available/.
+COPY ./tools/script.sh .
 
-CMD [ "nginx", "-g", "daemon off;" ]
+RUN chmod +x script.sh
+
+CMD ["./script.sh"]
 
